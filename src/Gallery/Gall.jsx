@@ -84,18 +84,38 @@ const Gall = () => {
     * USE SHORTABLEJS IN REACT USEEFFECT()
     ***************************************************/
     useEffect(() => {
-        const sortableJsInstance = new Sortable(gridRef.current, {
+        const sortableJsInstance = new Sortable((document.getElementById('sortable-list'), gridRef.current), {
             animation: 500, // Duration of the animation in milliseconds (e.g., 150ms)
             delay: 2,// item if user drag the item
-            multiDrag: true,
-            delayOnTouchOnly: true,
-            sort: true,
-            touchStartThreshold: 10,
-            swapThreshold: 1,
+            delayOnTouchOnly: true, // only delay if user is using touch
+            sort: true,  // sorting inside list
+            emptyInsertThreshold: 5, // px, distance mouse must be from empty sortable to insert drag element into it
+            touchStartThreshold: 0, // px, how many pixels the point should move before cancelling a delayed drag event
+            swapThreshold: 1, // Threshold of the swap zone
+            invertedSwapThreshold: 1, // Threshold of the inverted swap zone (will be set to swapThreshold value by default)
+            invertSwap: false, // Will always use inverted swap zone if set to true
             ghostClass: "sortable-ghost",  // Class name for the drop placeholder
             chosenClass: "sortable-chosen",  // Class name for the chosen item
             dragClass: "sortable-drag",  // Class name for the dragging item
+            filter: '.disable-drag',
+            onEnd: (evt) => {
+                // Handle the "end" event when an item is dropped
+                const newData = Array.from(data);
+                const [movedItem] = newData.splice(evt.oldIndex, 1);
+                newData.splice(evt.newIndex, 0, movedItem);
+
+                // Save the updated order to sessionStorage
+                sessionStorage.setItem('sortable-data', JSON.stringify(newData));
+
+                // Update the state with the new order
+                setData(newData);
+            }
         });
+        // Load data from sessionStorage when the component mounts
+        const storedData = sessionStorage.getItem('sortable-data');
+        if (storedData) {
+            setData(JSON.parse(storedData));
+        }
         return () => {
             sortableJsInstance.destroy();
         };
@@ -172,7 +192,7 @@ const Gall = () => {
             {/*********************************
             * IMAGE GALLERY SECTION START HERE
             **********************************/}
-            <div id='grid' className='grid' ref={gridRef}>
+            <div id='sortable-list' className='grid' ref={gridRef}>
                 {data.map((item) => (
                     <>
                         <div
@@ -191,8 +211,8 @@ const Gall = () => {
                  * IMAGE UPLAOD SECTION START HERE
                  **********************************/}
                 <div onClick={handleButtonClick}
-                    className={"img_box"}
-                    draggable={'true'}
+                    className={"img_box img_upload_box disable-drag"}
+                    draggable={'false'}
                     style={{ cursor: 'pointer' }}>
                     <LazyLoadImage
                         style={{ width: "100%", height: 'auto' }}

@@ -4,6 +4,24 @@
     --text-color: black;
 }
 
+/********************************
+SHORT ITEM EFFECT STYLE HERE
+*********************************/
+.sortable-drag {
+    border-color: green !important;
+}
+
+.sortable-ghost {
+    opacity: .6 !important;
+}
+
+.sortable-chosen {
+    border-color: dodgerblue;
+}
+
+/********************************
+IMAGE MAIN CONTAINER STYLE HERE
+*********************************/
 .image_gallery {
     padding: 20px 0;
     width: 100%;
@@ -12,6 +30,9 @@
     border-radius: 10px;
 }
 
+/*******************************************
+GALLERY ITEM DELETE OPTION STYLE HERE
+********************************************/
 .image_gallery .options {
     padding: 20px;
     /* background-color: var(--card-bg-color); */
@@ -49,6 +70,37 @@
     font-family: cursive !important;
 }
 
+/*******************************************
+GALLERY ITEM MAIN GRID BOX STYLE HERE
+********************************************/
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 200px);
+    grid-template-rows: repeat(5, 200px);
+    height: 100%;
+    row-gap: 25px;
+    column-gap: 15px;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    animation-delay: 3ms;
+}
+
+.grid>div {
+    transition: background-color 0.3s ease;
+}
+
+.img_box:first-child {
+    border-color: #21f123;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+/*******************************************
+GALLERY EACH ITEM STYLE HERE
+********************************************/
 .img_box {
     padding: 10px;
     background: var(--card-bg-color);
@@ -79,15 +131,16 @@
     opacity: 1;
 }
 
-.grid .img_box:first-child input[type="checkbox"] {
+.img_box:first-child input[type="checkbox"] {
     display: none;
 }
 
 .img_box::after {
     content: '';
-    width: 0%;
-    height: 0%;
-    background: var(--backgrund_color);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: #ff6600;
     backdrop-filter: blur(100px);
     /* transform: rotate(300deg);
     transform-origin: right; */
@@ -95,16 +148,14 @@
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: .6;
     transition: .7s ease-in-out;
 }
 
 .img_box:hover::after {
-    width: 100%;
-    height: 100%;
+    opacity: 1;
     /* transform: rotate(0deg);
     transform-origin: right; */
-    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .img_box img {
@@ -117,51 +168,21 @@
     transition: transform 0.5s ease-in-out;
 }
 
-.main_box {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 3;
-    background: #fff;
-    border-radius: 10px;
-    border: 3px solid #eee;
-    text-transform: capitalize;
-    color: white;
-    font-weight: 500;
-    transition: 1s;
-    animation-delay: 3ms;
+/*******************************************
+GALLERY IMAGE UPLOAD ITEM STYLE HERE
+********************************************/
+.img_box.img_upload_box::after {
+    opacity: 0;
 }
 
-.grid .img_box:first-child::after {
+/*******************************************
+GALLERY FIRST ITEM BOARD STYLE HERE
+********************************************/
+.img_box:first-child::after {
     display: none;
 }
 
-.grid .img_box:first-child img {
+.img_box:first-child img {
     width: 100%;
     height: 100%;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(5, 200px);
-    grid-template-rows: repeat(5, 200px);
-    height: 100%;
-    row-gap: 25px;
-    column-gap: 15px;
-    justify-content: center;
-    align-items: center;
-    transition: 1s;
-    animation-delay: 3ms;
-}
-
-.grid>div {
-    transition: background-color 0.3s ease;
-}
-
-.grid .img_box:first-child {
-    border-color: #21f123;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 3;
 }
