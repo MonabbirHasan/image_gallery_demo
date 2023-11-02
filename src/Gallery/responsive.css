@@ -1,0 +1,144 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+
+    /* CSS */
+
+}
+
+/* 
+    ##Device = Laptops, Desktops
+    ##Screen = B/w 1025px to 1280px
+  */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+    /* CSS */
+
+}
+
+/* 
+    ##Device = Tablets, Ipads (portrait)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+/* 
+    ##Device = Tablets, Ipads (landscape)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+    .grid {
+        margin-top: 40px;
+        grid-template-columns: repeat(5, 110px) !important;
+        grid-template-rows: repeat(3, 80px) !important;
+        row-gap: 25vh !important;
+    }
+
+    .grid .img_box {
+        border: 3px solid white !important;
+        margin-top: 60px;
+    }
+
+    .grid .img_box:first-child {
+        /* margin-bottom: 50px; */
+        margin: 0 !important;
+        grid-column-start: 1 !important;
+        grid-column-end: 4 !important;
+        /* grid-row: auto !important; */
+    }
+
+    .image_gallery .options {
+        width: auto !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    .image_gallery .options span:nth-child(2) {
+        font-size: 14px !important;
+    }
+
+}
+
+/* 
+    ##Device = Low Resolution Tablets, Mobiles (Landscape)
+    ##Screen = B/w 481px to 767px
+  */
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    .grid {
+        margin-top: 40px;
+        grid-template-columns: repeat(3, 110px) !important;
+        grid-template-rows: repeat(3, 150px) !important;
+        row-gap: 60px !important;
+    }
+
+    .grid .img_box {
+        border: 3px solid white !important;
+    }
+
+    .grid .img_box:first-child {
+        grid-column-start: 1 !important;
+        grid-column-end: 4 !important;
+        /* grid-row: auto !important; */
+    }
+
+    .image_gallery .options {
+        width: auto !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    .image_gallery .options span:nth-child(2) {
+        font-size: 14px !important;
+    }
+
+
+}
+
+/* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .grid {
+        grid-template-columns: repeat(3, 100px) !important;
+        grid-template-rows: repeat(3, 150px) !important;
+        row-gap: 40px !important;
+    }
+
+    .grid .img_box {
+        border: 3px solid white !important;
+    }
+
+    .grid .img_box:first-child {
+        grid-column-start: 1 !important;
+        grid-column-end: 4 !important;
+        /* grid-row: auto !important; */
+    }
+
+    .image_gallery .options {
+        width: 270px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin: 0 !important;
+    }
+
+    .image_gallery .options span:nth-child(2) {
+        font-size: 14px !important;
+    }
+}
