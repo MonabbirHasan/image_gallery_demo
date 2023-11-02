@@ -68,7 +68,7 @@ const DataItems = [
 ]
 const Gall = () => {
     /*****************************
-    * ALL STATES DEFINED HERE
+     * ALL STATES DEFINED HERE
     ******************************/
     const gridRef = useRef(null);
     const sortableJsRef = useRef(null);
@@ -84,7 +84,7 @@ const Gall = () => {
     * USE SHORTABLEJS IN REACT USEEFFECT()
     ***************************************************/
     useEffect(() => {
-        const sortableJsInstance = new Sortable((document.getElementById('sortable-list'), gridRef.current), {
+        const sortableJsInstance = new Sortable((gridRef.current), {
             animation: 500, // Duration of the animation in milliseconds (e.g., 150ms)
             delay: 2,// item if user drag the item
             delayOnTouchOnly: true, // only delay if user is using touch
@@ -98,31 +98,16 @@ const Gall = () => {
             chosenClass: "sortable-chosen",  // Class name for the chosen item
             dragClass: "sortable-drag",  // Class name for the dragging item
             filter: '.disable-drag',
-            onEnd: (evt) => {
-                // Handle the "end" event when an item is dropped
-                const newData = Array.from(data);
-                const [movedItem] = newData.splice(evt.oldIndex, 1);
-                newData.splice(evt.newIndex, 0, movedItem);
-
-                // Save the updated order to sessionStorage
-                sessionStorage.setItem('sortable-data', JSON.stringify(newData));
-
-                // Update the state with the new order
-                setData(newData);
-            }
         });
-        // Load data from sessionStorage when the component mounts
-        const storedData = sessionStorage.getItem('sortable-data');
-        if (storedData) {
-            setData(JSON.parse(storedData));
-        }
         return () => {
-            sortableJsInstance.destroy();
+            if (sortableJsInstance) {
+                sortableJsInstance.destroy();
+            }
         };
     }, []);
-    /************************************
-    * SELECT EACH ITEM USING CHECKBOX
-    *************************************/
+    /**********************************************
+    * SELECT EACH ITEM USING CHECKBOX FOR DELETE
+    ***********************************************/
     const selectItem = (id) => {
         if (selectedItems.includes(id)) {
             setSelectedItems(selectedItems.filter((item) => item !== id));
@@ -154,7 +139,7 @@ const Gall = () => {
             reader.onload = (e) => {
                 const maxId = Math.max(...data.map((item) => item.id));
                 const newId = maxId + 1;
-                const newItem = { id: newId, img: e.target.result };
+                const newItem = { "id": newId, "img": e.target.result };
                 setData([...data, newItem]);
             };
             reader.readAsDataURL(file);
